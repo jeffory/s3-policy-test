@@ -25,3 +25,15 @@ The application is intended to run from ECS as well as EC2 if needed, because of
 * `S3_BUCKET_NAME` Bucket to test the policies against, should be created prior to S3 Policy Tester running
 * `S3_BUCKET_OBJECT` (Optional if `put` policy check is enabled) A relative path to an object to check for checking get object policies, this can be omitted if the put object policies are enabled
 * `SERVER_PORT` (Optional, defaults to `80`) what port the server listens on
+
+## Pushing the Docker to ECR
+
+```
+eval $(aws ecr get-login --no-include-email --profile <your_profile_name> --region <region> | sed 's|https://||')
+
+docker build -t <docker_tag> .
+
+docker tag <docker_tag>:latest <ecr_url>:latest
+
+docker push <ecr_url>:latest
+```
