@@ -1,4 +1,4 @@
-module s3-policy-test
+module github.com/jeffory/s3-policy-tester
 
 go 1.17
 
