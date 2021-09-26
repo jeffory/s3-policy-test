@@ -1,3 +1,5 @@
+# This project is a WIP and is not in a working state yet.
+
 # S3 Policy tester
 
 S3 Policy tester is a web app (with accompanying docker file) used to test S3 Policies and is intended to be used with automated tests for testing IAM roles.
