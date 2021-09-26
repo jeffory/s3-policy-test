@@ -14,7 +14,7 @@ The application is intended to run from ECS as well as EC2 if needed, because of
 
 ## Environment variables
 
-**These will change when the application is finalised**
+**These may change when the application is finalised**
 
 * `AWS_ACCESS_KEY_ID` (Optional if supplied by attached IAM Role) AWS access key - used to authenticate access to the bucket, supplied by either instance/container configuration or the IAM role
 * `AWS_SECRET_ACCESS_KEY` (Optional if supplied by attached IAM Role) AWS secret key - See above
