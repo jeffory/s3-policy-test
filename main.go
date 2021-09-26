@@ -26,8 +26,7 @@ func GetEnvOrFallback(key string, fallback string) string {
 }
 
 func main() {
-	port := GetEnvOrFallback("SERVER_PORT", "8000")
-
+	port := GetEnvOrFallback("SERVER_PORT", "80")
 	log.Printf("Starting server, listening on port %s", port)
 
 	http.HandleFunc("/", HandleRequest)
@@ -38,6 +37,7 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	//AWSAccessKeyId := os.Getenv("AWS_ACCESS_KEY_ID")
 	//AWSSecretAccessKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 	S3BucketName := GetEnvOrFallback("S3_BUCKET_NAME", "terratest")
+	//AWSRegion := GetEnvOrFallback("AWS_REGION", "ap-southeast-2")
 
 	mainCtx := context.Background()
 	cfg, err := config.LoadDefaultConfig(mainCtx)			// @TODO: Will this load up from the IAM role injected vars?
@@ -64,11 +64,11 @@ func TestListAllBucketsPermission(s3Client *s3.Client) (bool, error) {
 	_, err := s3Client.ListBuckets(ctx, &s3.ListBucketsInput{})
 
 	if err != nil {
-		log.Fatal(err)
-		return true, nil
+		log.Println(err)
+		return false, err
 	}
 
-	return false, err
+	return true, nil
 }
 
 func TestPutObjectPermission(S3Client *s3.Client, BucketName string) (bool, error) {
@@ -88,9 +88,9 @@ func TestPutObjectPermission(S3Client *s3.Client, BucketName string) (bool, erro
 	})
 
 	if err != nil {
-		log.Fatal(err)
-		return true, nil
+		log.Println(err)
+		return false, err
 	}
 
-	return false, err
+	return true, nil
 }
